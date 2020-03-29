@@ -18,12 +18,17 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/utility.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
+   
+    @yield('css')
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color: #58a9ef;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
+                    <img class="navbar-logo" src="{{ asset('images/movie.png')}}"></img>
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -39,6 +44,9 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        <li class="nav-item">
+                                <a class="nav-link" href="{{ route('create') }}">レビューを書く</a>
+                            </li>
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -72,9 +80,18 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="main">
+            @if(session('flash_message'))
+                <div class="flash_message bg-success text-center py-3 my-0 mb-30">
+                    {{ session('flash_message') }}
+                </div>
+            @endif
+            
             @yield('content')
         </main>
+        <footer class="footer p20">
+            <small class="copyright">Laravel Moviews Review 2020 copyright</small>
+        </footer>
     </div>
 </body>
 </html>
